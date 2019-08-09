@@ -1,12 +1,4 @@
 /**
- * Editor goes to Site Kit splash page and sees the splash screen "Welcome to Site Kit", with product information.
- * User clicks "Connect Your Account".
- * User is forwarded to Google OAuth flow (needs to be intercepted similar to how it's done in the above issues).
- * User comes back and lands on the Site Kit dashboard.
- */
-
-
-/**
  * WordPress dependencies
  */
 import { activatePlugin, createURL, visitAdminPage, loginUser } from '@wordpress/e2e-test-utils';
@@ -66,13 +58,14 @@ describe( 'Site Kit set up flow for the first time', () => {
 		expect( page ).toMatchElement( '.googlesitekit-publisher-win__title', { text: 'Congrats on completing the setup for Site Kit!' } );
 	} );
 
-	it( 'editor connect account from splash screen', async() => {
+	it( 'editor can connect account from splash screen', async() => {
 
 		//switch to editor user
-		// switchUserToTest();
 		await loginUser( 'editor', 'password' );
+		await page.waitForSelector( '#wpadminbar' );
 
 		await visitAdminPage( 'admin.php', 'page=googlesitekit-splash' );
+		await page.waitForNavigation();
 		await page.waitForSelector( '#js-googlesitekit-dashboard-splash' );
 		expect( page ).toMatchElement( '.googlesitekit-splash-intro__title', { text: 'Welcome to Site Kit.' } );
 
