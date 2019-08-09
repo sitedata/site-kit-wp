@@ -47,6 +47,7 @@ echo -e $(status_message "Installing WordPress...")
 # The `-u 33` flag tells Docker to run the command as a particular user and
 # prevents permissions errors. See: https://github.com/WordPress/gutenberg/pull/8427#issuecomment-410232369
 docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm -u 33 $CLI core install --title="$SITE_TITLE" --admin_user=admin --admin_password=password --admin_email=test@test.com --skip-email --url=http://localhost:$HOST_PORT --quiet
+docker-compose $DOCKER_COMPOSE_FILE_OPTIONS run --rm -u 33 $CLI user create editor editor@example.com --role=editor --user_pass=password --quiet
 
 if [ "$E2E_ROLE" = "author" ]; then
 	echo -e $(status_message "Creating an additional author user for testing...")
