@@ -403,7 +403,7 @@ class TagmanagerSetup extends Component {
 									{
 										0 === container.publicId ?
 											__( 'Set up a new container', 'google-site-kit' ) :
-											container.publicId
+											container.name
 									}
 								</Option> ) }
 						</Select>
